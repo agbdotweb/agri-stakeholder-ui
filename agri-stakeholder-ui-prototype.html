@@ -1,0 +1,458 @@
+<html lang="en" class=""><head>
+
+  <meta charset="UTF-8">
+  <title>CodePen Demo</title>
+
+  <meta name="robots" content="noindex">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+  <link rel="mask-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+  <link rel="canonical" href="https://codepen.io/pen/">
+
+  
+  
+
+  <style id="INLINE_PEN_STYLESHEET_ID">
+    
+  </style>
+
+  
+<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-6d8bf8b4b479137260842506acbb12717dace0823c023e08b96360e60b0840d9.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-44fe83e49b63affec96918c9af88c0d80b209a862cf87ac46bc933074b8c557d.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js"></script>
+</head>
+
+<body>
+  
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agriculture Stakeholder Interface Design — Prototype</title>
+  <style>
+    :root{
+      --bg:#f7fafc; --card:#ffffff; --muted:#6b7280; --accent:#0f766e; --accent-2:#2563eb; --success:#16a34a;
+      --maxw:1100px; font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#f8fafc, #eef2f7);color:#0f172a}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
+
+    /* Tabs */
+    .tabs{display:flex;gap:8px;margin:12px 0 18px;flex-wrap:wrap}
+    .tab{background:var(--card);padding:10px 14px;border-radius:10px;border:1px solid #e6eef3;cursor:pointer;font-weight:600;color:var(--accent-2)}
+    .tab[aria-selected="true"]{box-shadow:0 6px 18px rgba(37,99,235,0.08);border-color:rgba(37,99,235,0.18);}
+
+    /* Layout */
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr;}.side{order:2}}
+
+    .panel{background:var(--card);padding:18px;border-radius:12px;border:1px solid #e6eef3}
+    .panel h2{margin-top:0;font-size:16px}
+    .section{margin-bottom:14px}
+    ul{margin:8px 0 0 18px;color:var(--muted)}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* Feature cards */
+    .features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px}
+    @media (max-width:700px){.features{grid-template-columns:1fr}}
+    .card{background:#fbfdff;padding:12px;border-radius:10px;border:1px solid #e9f2f8}
+    .code{font-family:monospace;font-size:13px;color:#0f172a;background:#f1f5f9;padding:6px;border-radius:6px;display:inline-block}
+
+    /* Controls */
+    .row{display:flex;gap:8px;align-items:center}
+    .btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+    .btn.secondary{background:#eef2f7;color:var(--accent-2);border:1px solid #dbeafe}
+    .muted{color:var(--muted)}
+
+    /* Accessibility hints */
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+    /* Side panel components */
+    .panel .stat{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed #eef4f8}
+    .stat:last-child{border-bottom:0}
+    .pill{font-size:12px;padding:6px 8px;border-radius:999px;border:1px solid #e6eef3}
+
+    /* Footer */
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Download button */
+    .download{margin-left:8px}
+  </style>
+
+
+  <div class="wrap" role="main">
+    <header>
+      <div>
+        <h1>Agriculture Stakeholder Interface — Design Prototype</h1>
+        <p class="lead">A simple, accessible HTML prototype mapping stakeholder needs to interface features. Click the tabs to explore each stakeholder's tailored view.</p>
+      </div>
+      <div class="row">
+        <button class="btn" id="downloadBtn">Download HTML</button>
+        <button class="btn secondary" id="printBtn">Print</button>
+      </div>
+    </header>
+
+    <nav aria-label="Stakeholder tabs" class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-target="expert">Agricultural Experts</button>
+      <button class="tab" role="tab" data-target="gov">Government &amp; Extension</button>
+      <button class="tab" role="tab" data-target="dev">Developers &amp; Data Scientists</button>
+      <button class="tab" role="tab" data-target="agritech">AgriTech Companies / Investors</button>
+      <button class="tab" role="tab" data-target="env">Environmental Organizations</button>
+    </nav>
+
+    <div class="grid">
+      <main>
+        <!-- Expert -->
+        <section id="expert" class="panel stakeholder" role="tabpanel">
+          <h2>Agricultural Experts</h2>
+          <p class="small">Description: Field scientists, crop pathologists and extension specialists who validate knowledge and ensure system accuracy.</p>
+
+          <div class="section">
+            <strong>Requirements</strong>
+            <ul>
+              <li>Easy submission and review of disease cases (images + notes)</li>
+              <li>Peer review and consensus controls for labels</li>
+              <li>Tools for accuracy tracking and error reporting</li>
+              <li>Clear provenance and source metadata for each record</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Functions</strong>
+            <ul>
+              <li>Upload case (images, GPS, short symptom form)</li>
+              <li>Annotate images and mark regions of interest</li>
+              <li>Accept/reject labels with reason codes</li>
+              <li>Run quick validation tests against model predictions</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Interface Features</strong>
+            <div class="features">
+              <div class="card">
+                <strong>Case Review Panel</strong>
+                <p class="small">Large image with zoom, annotation tools, provenance header (who submitted, when, location).</p>
+              </div>
+              <div class="card">
+                <strong>Consensus Queue</strong>
+                <p class="small">List of cases needing 2+ expert reviews with clear accept/reject buttons and short justification field.</p>
+              </div>
+              <div class="card">
+                <strong>Accuracy Monitor</strong>
+                <p class="small">Simple dashboard showing model precision/recall by crop and disease with trend sparklines.</p>
+              </div>
+              <div class="card">
+                <strong>Export &amp; Report</strong>
+                <p class="small">Export validated cases (CSV, JSON) with metadata for research or policy use.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <strong>Quick mock controls</strong>
+            <div class="row" style="margin-top:8px">
+              <button class="btn" onclick="alert('Open Case Uploader (prototype)')">Open Case Uploader</button>
+              <button class="btn secondary" onclick="alert('Open Consensus Queue')">Open Consensus Queue</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Government -->
+        <section id="gov" class="panel stakeholder" role="tabpanel" hidden="">
+          <h2>Government &amp; Extension Officers</h2>
+          <p class="small">Description: Policy makers and field officers who promote technology adoption and sustainable practices.</p>
+
+          <div class="section">
+            <strong>Requirements</strong>
+            <ul>
+              <li>Simple, action-oriented insights for farmers</li>
+              <li>Local adoption metrics and demonstration results</li>
+              <li>Guidance flows for sustainable practices (step-by-step)</li>
+              <li>Compliance &amp; subsidy tracking where applicable</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Functions</strong>
+            <ul>
+              <li>Push advisory messages to grouped farmers (SMS/WhatsApp templates)</li>
+              <li>Schedule field demos and track attendance</li>
+              <li>Monitor adoption KPIs (regions, crops, adoption rate)</li>
+              <li>Generate simple policy briefs and printable leaflets</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Interface Features</strong>
+            <div class="features">
+              <div class="card">
+                <strong>Advisory Builder</strong>
+                <p class="small">Template-based recommendations with localization for crop, language and practice.</p>
+              </div>
+              <div class="card">
+                <strong>Adoption Dashboard</strong>
+                <p class="small">Map + KPIs (adoption %, demo count) and simple export for reports.</p>
+              </div>
+              <div class="card">
+                <strong>Event Scheduler</strong>
+                <p class="small">Create demo events, capture attendance, feedback, and link back to farmer profiles.</p>
+              </div>
+              <div class="card">
+                <strong>Compliance Tracker</strong>
+                <p class="small">Track eligible farmers for subsidies and quick audit logs for inspections.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Developers -->
+        <section id="dev" class="panel stakeholder" role="tabpanel" hidden="">
+          <h2>Developers &amp; Data Scientists</h2>
+          <p class="small">Description: Teams maintaining apps, models and data pipelines focused on reliability and explainability.</p>
+
+          <div class="section">
+            <strong>Requirements</strong>
+            <ul>
+              <li>Access to labeled datasets and versioned model artifacts</li>
+              <li>Clear error logs and monitoring hooks (performance &amp; data drift)</li>
+              <li>APIs and sample payloads for integration and testing</li>
+              <li>Non-technical dashboards for model performance to show stakeholders</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Functions</strong>
+            <ul>
+              <li>Download labeled datasets and annotation ledger</li>
+              <li>Trigger model re-training and view job status</li>
+              <li>View logs, data drift alerts and sample misclassified cases</li>
+              <li>Provide lightweight SDKs or API endpoints for integration</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Interface Features</strong>
+            <div class="features">
+              <div class="card">
+                <strong>Dataset Explorer</strong>
+                <p class="small">Filter by crop, label, reviewer, date. Preview images and metadata inline.</p>
+              </div>
+              <div class="card">
+                <strong>Model Playground</strong>
+                <p class="small">Upload sample input, view predictions, confidence scores and explanation highlights.</p>
+              </div>
+              <div class="card">
+                <strong>Monitoring</strong>
+                <p class="small">Simple alert center for model drift, latency spikes and error rates.</p>
+              </div>
+              <div class="card">
+                <strong>API Docs &amp; SDKs</strong>
+                <p class="small">Copy-ready examples and sandbox keys (read-only for safety).</p>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- AgriTech -->
+        <section id="agritech" class="panel stakeholder" role="tabpanel" hidden="">
+          <h2>AgriTech Companies &amp; Investors</h2>
+          <p class="small">Description: Product teams and investors focusing on funding, distribution, and scaling market reach.</p>
+
+          <div class="section">
+            <strong>Requirements</strong>
+            <ul>
+              <li>Market demand signals and farmer cohort analytics</li>
+              <li>Distribution performance and channel metrics</li>
+              <li>Return-on-investment estimates and pilot outcomes</li>
+              <li>Clear pricing templates and partnership models</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Functions</strong>
+            <ul>
+              <li>View pilot dashboards and conversion funnels</li>
+              <li>Run simple revenue/ROI calculators for different roll-out plans</li>
+              <li>Download pitch-ready one-pagers and data snapshots</li>
+              <li>Connect with local partners and distribution agents</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Interface Features</strong>
+            <div class="features">
+              <div class="card">
+                <strong>Pilot Performance</strong>
+                <p class="small">Conversion funnels, CAC, LTV estimates and regional heatmaps.</p>
+              </div>
+              <div class="card">
+                <strong>ROI Simulator</strong>
+                <p class="small">Interactive sliders for pricing, adoption rate and distribution cost to show break-even scenarios.</p>
+              </div>
+              <div class="card">
+                <strong>Partner Directory</strong>
+                <p class="small">Verified distributors, demo hosts and contact flows for onboarding.</p>
+              </div>
+              <div class="card">
+                <strong>Export Pack</strong>
+                <p class="small">Auto-generate presentation slides and brief data reports for investor meetings.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Environmental -->
+        <section id="env" class="panel stakeholder" role="tabpanel" hidden="">
+          <h2>Environmental Organizations</h2>
+          <p class="small">Description: NGOs and advocacy groups aiming to reduce pesticide use and promote sustainable practices.</p>
+
+          <div class="section">
+            <strong>Requirements</strong>
+            <ul>
+              <li>Metrics for pesticide usage, biodiversity indicators, and soil health</li>
+              <li>Evidence-based alternatives and low-input practice guides</li>
+              <li>Tools to track the impact of interventions over time</li>
+              <li>Privacy-preserving farmer data sharing for research</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Functions</strong>
+            <ul>
+              <li>Visualize pesticide application intensity over regions</li>
+              <li>Recommend eco-friendly alternatives and integrated pest management steps</li>
+              <li>Collect long-term impact data (soil tests, biodiversity surveys)</li>
+              <li>Facilitate anonymous reporting and consented data pools</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Interface Features</strong>
+            <div class="features">
+              <div class="card">
+                <strong>Sustainability Map</strong>
+                <p class="small">Heatmap of pesticide intensity, conservation priority zones and intervention overlays.</p>
+              </div>
+              <div class="card">
+                <strong>Practice Library</strong>
+                <p class="small">Short how-to guides, video clips and farmer-friendly timing calendars to reduce chemical use.</p>
+              </div>
+              <div class="card">
+                <strong>Impact Tracker</strong>
+                <p class="small">Longitudinal charts for pesticide kg/ha, beneficial insect counts, and soil organic matter.</p>
+              </div>
+              <div class="card">
+                <strong>Data Consent Center</strong>
+                <p class="small">Tools to request, review and manage farmer data-sharing permissions and anonymization options.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <aside class="side">
+        <div class="panel">
+          <h2>Common UI Skeleton (for all stakeholders)</h2>
+          <p class="small">Design notes to ensure the product is friendly, accessible and practical for mixed audiences.</p>
+
+          <div class="section">
+            <strong>Principles</strong>
+            <ul>
+              <li>Plain language — avoid jargon; use short sentences and tooltips</li>
+              <li>Mobile-first — most users will access via basic smartphones</li>
+              <li>Low-bandwidth modes — compressed images, offline caches and SMS fallbacks</li>
+              <li>Accessibility — high contrast, keyboard support and readable fonts</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <strong>Shared Components</strong>
+            <div class="stat"><div class="muted">Farmer Profile</div><div class="pill">Contact | Location | Crops</div></div>
+            <div class="stat"><div class="muted">Notifications</div><div class="pill">SMS / App / Email</div></div>
+            <div class="stat"><div class="muted">Localization</div><div class="pill">Language &amp; Units</div></div>
+            <div class="stat"><div class="muted">Offline Mode</div><div class="pill">Cache &amp; Sync</div></div>
+          </div>
+
+          <div class="section">
+            <strong>Usability Tests to run</strong>
+            <ul>
+              <li>10 field trials with experts for the annotation workflow</li>
+              <li>Local language A/B tests for advisory messages</li>
+              <li>Load tests for batch uploads and model inference</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <h2>Quick Actions</h2>
+          <div class="row" style="margin-top:8px">
+            <button class="btn" onclick="alert('Prototype: Create Advisory')">Create Advisory</button>
+            <button class="btn secondary" onclick="alert('Prototype: Open Dataset')">Open Dataset</button>
+          </div>
+          <p class="small" style="margin-top:8px">Keyboard: Use <kbd>Tab</kbd> to move and Enter/Space to activate controls.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      Prototype UI — accessible, mobile-first, and tailored to stakeholder workflows. You can download the HTML file and open it locally.
+    </footer>
+  </div>
+
+  <script>
+    // Tab behavior
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.stakeholder');
+    tabs.forEach(tab=>{
+      tab.addEventListener('click', ()=>{
+        tabs.forEach(t=>t.setAttribute('aria-selected','false'));
+        tab.setAttribute('aria-selected','true');
+        const target = tab.getAttribute('data-target');
+        panels.forEach(p=>{
+          if(p.id===target) { p.hidden = false; p.querySelector('h2').focus?.(); }
+          else p.hidden = true;
+        });
+      });
+      tab.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+          e.preventDefault();
+          const idx = Array.from(tabs).indexOf(tab);
+          const next = e.key === 'ArrowRight' ? (idx+1)%tabs.length : (idx-1+tabs.length)%tabs.length;
+          tabs[next].click(); tabs[next].focus();
+        }
+      });
+    });
+
+    // Download current HTML
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'agri-stakeholder-ui-prototype.html';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+    document.getElementById('printBtn').addEventListener('click', ()=>window.print());
+
+    // Basic keyboard focus on load
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.querySelector('.tab[aria-selected="true"]').focus();
+    });
+  </script>
+
+
+
+
+  
+  
+
+
+</body></html>
